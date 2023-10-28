@@ -12,4 +12,6 @@ public interface GradeRepository {
   Optional<Grade> getGrade(String unidad);
 
 	Grade addGrade(Grade newGrade);
+
+    Object createGradeFromPlainText (String s);
 }

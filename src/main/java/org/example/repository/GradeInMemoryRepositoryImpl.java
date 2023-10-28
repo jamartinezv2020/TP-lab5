@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 
 import org.example.model.Grade;
 
-public class GradeInMemoryRepositoryImpl implements GradeRepository {
+public abstract class GradeInMemoryRepositoryImpl implements GradeRepository {
 
   private static final Logger logger = LoggerFactory.getLogger( GradeInMemoryRepositoryImpl.class);
 
-  private List<Grade> gradeList;
+  private final List<Grade> gradeList;
 
   public GradeInMemoryRepositoryImpl() {
-    this.gradeList = new ArrayList<>(loadGrades());//Al momento de construir el Repository se cargan los datos "quemados" en la clase
+    this.gradeList = new ArrayList<>(loadGrades());
   }
 
   private List<Grade> loadGrades(){
@@ -46,9 +46,9 @@ public class GradeInMemoryRepositoryImpl implements GradeRepository {
     this.gradeList.add( newGrade );
 
     return this.gradeList.stream()
-            .filter( isTheGradeOfTheProject( newGrade ) )//Busca la nota en la lista que corresponda al proyecto de la nota recien creada
+            .filter( isTheGradeOfTheProject( newGrade ) )
             .findAny()
-            .orElse( null );//Si no la encuentra devuelve nulo
+            .orElse( null );
   }
 
   private Predicate<Grade> isTheGradeOfTheProject(Grade newGrade) {
